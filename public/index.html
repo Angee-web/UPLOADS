@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- tailwind link -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+
+<title>Upload Form</title>
+
+  </head>
+  <body>
+    <!-- contain everything -->
+    <div class="bg-gray-400 flex justify-center align-center  ">
+        <div class="flex m-60 border-4">
+          <form action="/post" method="post" enctype="multipart/form-data" class="px-10 py-20">
+            <!-- email -->
+
+            <label for="email" class="mb-5">
+              <span class="text-white font-bold">Email:</span>
+              <br>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="... peer bg-gray-700 border-4 border-white text-white w-80"
+                placeholder=" "
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              />
+              <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+                Please enter a valid email address
+              </span>
+            </label>
+            <br><br>
+            <!-- email -->
+             
+            <label class="text-white font-bold">Name:</label>
+            <input type="text" name="name" class="bg-gray-700 border-4 border-white text-white w-80" required>
+            <br><br>
+            <label class="text-white font-bold">Age:</label>
+            <input type="text" name="age" class="bg-gray-700 border-4 border-white text-white w-80" required>
+            <br><br>
+
+            <!-- password -->
+            <label for="password" class="mb-5">
+              <span class="text-white font-bold font-md">Password:</span>
+              <br>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="bg-gray-700 border-4 border-white text-white w-80"
+                placeholder=" "
+                required
+                pattern=".{0,7}"
+              />
+            </label>
+          
+            <!-- password -->
+            <br><br>
+            <label class="text-white font-bold">Upload Your Image:</label>
+            <input type="file" name="file" required>
+            <br><br>
+            <button type="submit" class="text-white font-bold border-4 border-white py-2 px-4 rounded-full hover:bg-white hover:text-gray-500 hover:border-gray-500">Send</button>
+        </form>        
+        </div>
+        
+
+    </div>
+  </body>
+</html>

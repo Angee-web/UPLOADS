@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uploaded Media</title>
+  <!-- CSS for image and video grid  -->
+  <style>
+  
+    #mediaSection {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 20px;
+    }
+
+    .media-item {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .media-item img, .media-item video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="mediaSection">
+    <!-- Images and Videos will be rendered here -->
+  </div>
+
+  <script>
+    fetch('http://localhost:3005/media')
+      .then(response => response.json())
+      .then(data => {
+        const mediaSection = document.getElementById('mediaSection');
+        
+        // Create image or video elements for each file
+        data.forEach(file => {
+          if (file.type === 'image') {
+            const img = document.createElement('img');
+            img.src = file.url;
+            img.alt = file.name;
+            
+            const mediaItem = document.createElement('div');
+            mediaItem.classList.add('media-item');
+            mediaItem.appendChild(img);
+            // append to the parent div
+            mediaSection.appendChild(mediaItem);
+          } else if (file.type === 'video') {
+            const video = document.createElement('video');
+            video.src = file.url;
+            video.controls = true; // Add controls for play, pause and other things.
+            video.alt = file.name;
+            
+            const mediaItem = document.createElement('div');
+            mediaItem.classList.add('media-item');
+          
+            mediaItem.appendChild(video);
+            
+            mediaSection.appendChild(mediaItem);
+          }
+        });
+      })
+      .catch(error => console.error('Error fetching media:', error));
+  </script>
+</body>
+</html>
