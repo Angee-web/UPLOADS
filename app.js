@@ -23,14 +23,15 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/uploads", express.static('uploads'));//this made it work
-
+app.use("/uploads", express.static("uploads")); //this made it work
 
 // CORS setup
-app.use(cors({
-  origin: 'http://127.0.0.1:5500', // Allow requests from this origin, or
-  // origin: "*" => for any origin
-}));
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5500", // Allow requests from this origin, or
+    // origin: "*" => for any origin
+  })
+);
 
 // Mongoose setup
 mongoose.connect("mongodb://localhost:27017/REGISTER");
@@ -124,7 +125,6 @@ app.post("/api/uploads", upload.single("file"), (req, res) => {
 //   });
 // });
 
-
 app.get("/media", (req, res) => {
   const directoryPath = path.join(__dirname, "uploads");
 
@@ -137,17 +137,19 @@ app.get("/media", (req, res) => {
     // Filter files to include images (PNG, JPG, JPEG) and videos (MP4)
     const mediaFiles = files.filter((file) => {
       const ext = path.extname(file).toLowerCase();
-      return ext === ".png" || ext === ".jpg" || ext === ".jpeg" || ext === ".mp4";
+      return (
+        ext === ".png" || ext === ".jpg" || ext === ".jpeg" || ext === ".mp4"
+      );
     });
 
     // Map filenames to full URLs with type information
     const mediaUrls = mediaFiles.map((file) => {
       const ext = path.extname(file).toLowerCase();
-      const type = ext === ".mp4" ? 'video' : 'image'; // Determine media type
+      const type = ext === ".mp4" ? "video" : "image"; // Determine media type
       return {
         name: file,
         url: `http://localhost:3005/uploads/${file}`,
-        type: type
+        type: type,
       };
     });
 
@@ -156,7 +158,6 @@ app.get("/media", (req, res) => {
     res.json(mediaUrls);
   });
 });
-
 
 const port = process.env.PORT || 3005;
 
